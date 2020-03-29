@@ -7,7 +7,7 @@ rem LEQ <=
 rem GEQ >=
 
 chcp 65001
-setlocal EnableDelayedExpansion
+setlocal ENABLEDELAYEDEXPANSION
 set emptychar=∙
 set headchar=█
 set segmchar=▒
@@ -50,8 +50,7 @@ set lableret=ret
 goto RNDFOOD
 :ret
 
-echo s> input.txt
-Start /B input.bat
+set key=s
 
 rem main loop
 :LOOP
@@ -104,8 +103,6 @@ rem show pts
 set /a pts=%curl%-3
 echo pts %pts%
 
-timeout /t 1 /nobreak>nul
-
 rem move snake segm
 set /a i=%curl%
 :MSNAKES
@@ -117,8 +114,14 @@ rem ------------------------------------------------------------------
 
 rem management
 set pastkey=%key%
-set /p key=< input.txt
+choice /C WSAD /D !pastkey! /T 1
 
+if "!ERRORLEVEL!"=="1" set key=w& goto CHECKKEY
+if "!ERRORLEVEL!"=="2" set key=s& goto CHECKKEY
+if "!ERRORLEVEL!"=="3" set key=a& goto CHECKKEY
+if "!ERRORLEVEL!"=="4" set key=d& goto CHECKKEY
+
+:CHECKKEY
 if "%key%"=="d" (
     @if not "%pastkey%"=="a" (
         (@if %x[0]% LSS %w% (set /a x[0]+=1) else (set /a x[0]=0)) & goto ENDMNG
@@ -209,5 +212,5 @@ rem end game
 :ENDGAME
 cls
 echo %endmsg%
-echo CTRL + BREAK to exit
+pause
 exit
