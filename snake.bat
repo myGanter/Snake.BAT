@@ -31,10 +31,10 @@ set /a curl=3
 rem ------------------------------------------------------------------
 
 echo use ENG
-echo enter 'd' to right
-echo enter 'a' to left
-echo enter 'w' to up
-echo enter 's' to down
+echo press 'd' to right
+echo press 'a' to left
+echo press 'w' to up
+echo press 's' to down
 pause
 
 rem init snake
